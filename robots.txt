@@ -1,0 +1,17 @@
+# Disallow access to all the website by default
+# List of known user-agents:
+#   - Googlebot (Google)
+#   - AdsBot-Google (Google)
+#   - Bingbot (Bing)
+#   - AdIdxBot (Bing)
+#   - DuckDuckBot (DuckDuckgo)
+#   - Yandex
+#   - Baiduspider
+# To give access of a SubDirectory use the following rule line
+# Allow: / 
+
+User-agent: *
+Disallow: / 
+
+Sitemap: https://www.example.com/sitemap.xml
+
