@@ -15,6 +15,8 @@ Execute the script "lamp.sh" with root rights to launch the installation.
 
 ## Robots txt
 
+https://github.com/google/robotstxt
+
 ## Next steps
 
 - WAMP Server
