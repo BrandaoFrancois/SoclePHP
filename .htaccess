@@ -1,0 +1,30 @@
+# Website Security password (Delete this lines to disable it)
+AuthType Basic
+AuthName ""
+AuthUserFile /var/www/html/.htpasswd
+Require user access
+Satisfy All
+
+# Error redirects
+ErrorDocument 401 /401.html
+ErrorDocument 404 /404.html
+ErrorDocument 500 /500.html
+
+# Rewrite rules (Delete this lines to disable it)
+RewriteEngine on
+
+##
+RewriteRule ^pages/(.+)$ /?page=$1 [L]
+
+# Access forbidden
+## Disable access to listing directories
+Options -Indexes
+
+## Disable access to scripts of installation (They should be deleted normally)
+<Files "install_lamp.sh">
+       Require all denied
+</Files>
+
+<Files "README.md">
+       Require all denied
+</Files>
