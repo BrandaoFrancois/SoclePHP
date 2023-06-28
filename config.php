@@ -13,14 +13,12 @@
 
 
  // Database (MariaDB)
- define('DB_URL', 'localhost');
- define('DB_BASE', 'database');
- define('DB_USER', 'user');
- define('DB_PASSWORD', 'password');
+ $_DB_INFO = array(
+     'mysqlDb' => array('URL' => 'localhost', 'BASE' => 'database', 'USER' => 'user', 'PASSWORD' => 'password')
+ );
 
  // Security
  $_PHP_SECURITY = true;
 
  $_AUTHORISED_PAGES = array();
-
 ?>
