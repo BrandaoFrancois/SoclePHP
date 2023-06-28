@@ -5,6 +5,15 @@
 --
 --
 
+-- Example of database creation
+CREATE DATABASE IF NOT EXISTS MY_DATABASE;
+
+-- Example of user database creation
+-- CREATE USER 'new_user'@'localhost' IDENTIFIED BY 'password';
+-- GRANT ALL PRIVILEGES ON * . * TO 'new_user'@'localhost';
+-- FLUSH PRIVILEGES;
+
+-- Creation of the tables
 CREATE TABLE USER {
        user_id INT PRIMARY KEY NOT NULL,
        user_email VARCHAR(255) NOT NULL,
