@@ -1,8 +1,8 @@
 <?php
 /*
- *
- * An example of a CRUD class used to request the database
- *
+*
+* An example of a CRUD class used to request the database
+*
 */
 
 class Car {
@@ -11,8 +11,8 @@ class Car {
     var $model;
     var $color;
     var $matriculation;
-    
-    public function create($db) {
+
+    public function create(&$db) {
         $sql = 'INSERT INTO CAR(car_brand, car_model, car_color, car_matriculation) VALUES (?, ?, ?, ?);';
         $stmt = $db->prepare($sql);
         $stmt->bindParam(1, $this->brand);
@@ -22,7 +22,7 @@ class Car {
         return $stmt->execute() && $stmt->rowCount() == 1;
     }
 
-    public function update($db) {
+    public function update(&$db) {
         $sql = 'UPDATE CAR SET car_brand = ? AND car_model = ? AND car_color = ? AND car_matriculation = ? WHERE car_id = ?';
         $stmt = $db->prepare($sql);
         $stmt->bindParam(1, $this->brand);
@@ -33,7 +33,7 @@ class Car {
         return $stmt->execute() && $stmt->rowCount() == 1;
     }
 
-    public static function readAll($db) {
+    public static function readAll(&$db) {
         $sql = 'SELECT car_id, car_brand, car_model, car_color, car_matriculation FROM CAR';
         $stmt = $db->prepare($sql);
 
@@ -41,19 +41,14 @@ class Car {
         if ($executionResult != true) {
             return null;
         }
-        $res = [];
+        $res = array();
         while ($row = $stmt->fetch(PDO::FETCH_NUM, PDO::FETCH_ORI_NEXT)) {
-            $newCar = new Car();
-            $newCar->id = $row[0];
-            $newCar->brand = $row[1];
-            $newCar->model = $row[2];
-            $newCar->color = $row[3];
-            $newCar->matriculation = $row[4];
+            $res[] = self::extract($row);
         }
         return $res;
     }
-    
-    public static function read($db, $id) {
+
+    public static function read(&$db, $id) {
         $sql = 'SELECT car_brand, car_model, car_color, car_matriculation FROM CAR WHERE car_id = ?;';
         $stmt = $db->prepare($sql);
         $stmt->bindParam(1, $id);
@@ -65,7 +60,11 @@ class Car {
         if (!$row) {
             return null;
         }
-        $res = new Car();
+        return self::extract($row);
+    }
+
+    private static function extract(&$row) {
+        $res = new self();
         $res->id = $row[0];
         $res->brand = $row[1];
         $res->model = $row[2];
@@ -74,7 +73,7 @@ class Car {
         return $res;
     }
 
-    public static function delete($db, $id) {
+    public static function delete(&$db, $id) {
         $sql = 'DELETE FROM CAR WHERE car_id = ?;';
         $stmt = $db->prepare($sql);
         $stmt->bindParam(1, $id);
